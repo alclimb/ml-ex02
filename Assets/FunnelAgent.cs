@@ -74,13 +74,13 @@ public class FunnelAgent : Agent
         }
 
         // UI更新
-        this.StatusText.text = $"distance: {distance}";
+        // this.StatusText.text = $"distance: {distance}";
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(this._rigidbody.position - this._basePosition);
-        sensor.AddObservation(this._rigidbody.velocity);
-        sensor.AddObservation((float)this._episodeTime.Elapsed.TotalSeconds);
+        // sensor.AddObservation(this._rigidbody.velocity);
+        // sensor.AddObservation((float)this._episodeTime.Elapsed.TotalSeconds);
     }
 }

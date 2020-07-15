@@ -14,7 +14,7 @@ public class MainProgram : MonoBehaviour
                 // オブジェクトを生成
                 var areaObj = GameObject.Instantiate(
                     Resources.Load("Area") as GameObject,
-                    new Vector3(x * 10f, y * 10f, 0f),
+                    new Vector3(x * 25f, y * 25f, 0f),
                     new Quaternion());
 
                 areaObj.GetComponentInChildren<UnityEngine.Canvas>().worldCamera = Camera.main;

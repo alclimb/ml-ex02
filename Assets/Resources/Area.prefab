@@ -225,12 +225,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
+    VectorObservationSize: 3
     NumStackedVectorObservations: 1
-    VectorActionSize: 07000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 5f2666bae6fba4249b6e3fb587a602be, type: 3}
   m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: FunnelBehavior
@@ -377,7 +377,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!114 &6603007049832332145
 MonoBehaviour:
   m_ObjectHideFlags: 0
