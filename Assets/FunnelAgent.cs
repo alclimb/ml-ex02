@@ -52,17 +52,22 @@ public class FunnelAgent : Agent
         const float power = 300f;
         const float area = 10f;
 
+        var force = new Vector3(vectorAction[0], vectorAction[1], vectorAction[2]) * power;
+
         // 物理エンジン: 力を加える
-        this._rigidbody.AddForce(new Vector3(vectorAction[0], vectorAction[1], vectorAction[2]) * power);
+        this._rigidbody.AddForce(force);
 
         // ベース地点からの移動距離を算出
         var distance = Vector3.Distance(this._rigidbody.position, this._basePosition);
 
+        // 評価: 報酬を与える (少ないエネルギー程高得点)
+        base.AddReward((power - Vector3.Distance(force, Vector3.zero)) / power);
+
         // エリア外に移動した場合
         if (area < distance)
         {
-            // 評価: 報酬を減らす
-            base.AddReward(-1f);
+            // // 評価: 報酬を減らす
+            // base.AddReward(-1f);
 
             // リセットして次のエピソードを開始
             base.EndEpisode();
@@ -70,7 +75,7 @@ public class FunnelAgent : Agent
         else
         {
             // 評価: 報酬を与える (ベース地点に近ければ高得点)
-            base.AddReward(area - distance);
+            base.AddReward((area - distance) / area);
         }
 
         // UI更新
@@ -80,7 +85,7 @@ public class FunnelAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(this._rigidbody.position - this._basePosition);
-        // sensor.AddObservation(this._rigidbody.velocity);
+        sensor.AddObservation(this._rigidbody.velocity);
         // sensor.AddObservation((float)this._episodeTime.Elapsed.TotalSeconds);
     }
 }
