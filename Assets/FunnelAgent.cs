@@ -36,8 +36,6 @@ public class FunnelAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        Debug.Log($"OnEpisodeBegin");
-
         // 位置を初期化
         this._rigidbody.position = Vector3.zero + this._basePosition;
         this._rigidbody.velocity = Vector3.zero;
@@ -46,58 +44,37 @@ public class FunnelAgent : Agent
 
         // ストップウォッチをリセット
         this._episodeTime.Reset();
+        this._episodeTime.Start();
     }
 
     public override void OnActionReceived(float[] vectorAction)
     {
-        Debug.Log($"OnActionReceived >> {vectorAction.Length}");
+        const float power = 300f;
+        const float area = 10f;
 
-        const float power = 20f;
-        var actionX = Mathf.Clamp(vectorAction[0], -1f, 1f) * power;
-        var actionZ = Mathf.Clamp(vectorAction[1], -1f, 1f) * power;
+        // 物理エンジン: 力を加える
+        this._rigidbody.AddForce(new Vector3(vectorAction[0], vectorAction[1], vectorAction[2]) * power);
 
-        // 移動
-        this._rigidbody.AddForce(new Vector3(actionX, 0, actionZ));
+        // ベース地点からの移動距離を算出
+        var distance = Vector3.Distance(this._rigidbody.position, this._basePosition);
 
-        // // ターゲットの位置 (ボールからの相対位置)
-        // var targetPosition = this.Target.position - this.transform.position;
-
-        // if ((0 < targetPosition.x && 0 < this._rigidbody.velocity.x) ||
-        //     (targetPosition.x < 0 && this._rigidbody.velocity.x < 0))
-        // {
-        //     // 評価: 報酬を与える
-        //     base.AddReward(+0.01f);
-        // }
-        // else
-        // {
-        //     // 評価: 報酬を減らす
-        //     base.AddReward(-0.01f);
-        // }
-
-        // if ((0 < targetPosition.z && 0 < this._rigidbody.velocity.z) ||
-        //     (targetPosition.z < 0 && this._rigidbody.velocity.z < 0))
-        // {
-        //     // 評価: 報酬を与える
-        //     base.AddReward(+0.01f);
-        // }
-        // else
-        // {
-        //     // 評価: 報酬を減らす
-        //     base.AddReward(-0.01f);
-        // }
-
-        // 落下判定
-        if (this.transform.position.y < -1.0f)
+        // エリア外に移動した場合
+        if (area < distance)
         {
-            // UI更新
-            this.StatusText.text = "落下";
-
-            // // 評価: 報酬を減らす
-            // base.AddReward(-1f);
+            // 評価: 報酬を減らす
+            base.AddReward(-1f);
 
             // リセットして次のエピソードを開始
             base.EndEpisode();
         }
+        else
+        {
+            // 評価: 報酬を与える (ベース地点に近ければ高得点)
+            base.AddReward(area - distance);
+        }
+
+        // UI更新
+        this.StatusText.text = $"distance: {distance}";
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -106,23 +83,4 @@ public class FunnelAgent : Agent
         sensor.AddObservation(this._rigidbody.velocity);
         sensor.AddObservation((float)this._episodeTime.Elapsed.TotalSeconds);
     }
-
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.gameObject.CompareTag("MY_TARGET"))
-    //     {
-    //         // UI更新
-    //         this.StatusText.text = "クリア";
-
-    //         var delta = (Time.time - this._episodeTime);
-
-    //         var score = (100f - delta) * 0.1f;
-
-    //         // 評価: 報酬を与える
-    //         base.AddReward(1.0f + score);
-
-    //         // リセットして次のエピソードを開始
-    //         base.EndEpisode();
-    //     }
-    // }
 }
