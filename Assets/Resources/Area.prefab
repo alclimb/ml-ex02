@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 6603007048655537920}
   - component: {fileID: 6603007048655537931}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Agent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 7
     NumStackedVectorObservations: 1
     VectorActionSize: 03000000
     VectorActionDescriptions: []
