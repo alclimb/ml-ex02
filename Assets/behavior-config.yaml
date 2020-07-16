@@ -28,7 +28,7 @@ behaviors:
         memory_size: 256
 
     # Trainer configurations common to all trainers
-    max_steps: 5.0e5
+    max_steps: 10.0e5
     time_horizon: 64
     summary_freq: 10000
     keep_checkpoints: 5
