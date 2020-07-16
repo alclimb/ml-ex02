@@ -1,5 +1,5 @@
 behaviors:
-  BehaviorPPO:
+  FunnelBehavior:
     trainer_type: ppo
 
     hyperparameters:
