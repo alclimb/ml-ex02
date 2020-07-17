@@ -107,4 +107,10 @@ public class FunnelAgent : Agent
         sensor.AddObservation(this._rigidbody.velocity);
         sensor.AddObservation((float)this._episodeTime.Elapsed.TotalSeconds);
     }
+
+    public void Reset()
+    {
+        // リセットして次のエピソードを開始
+        base.EndEpisode();
+    }
 }

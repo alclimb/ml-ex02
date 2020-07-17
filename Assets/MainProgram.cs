@@ -27,4 +27,16 @@ public class MainProgram : MonoBehaviour
     {
 
     }
+
+    public void OnClickResetButton()
+    {
+        // 全てのファンネルを取得する
+        var funnelAgents = GameObject.FindObjectsOfType<FunnelAgent>();
+
+        // 全てのファンネルをリセットする
+        foreach (var funnelAgent in funnelAgents)
+        {
+            funnelAgent.Reset();
+        }
+    }
 }
