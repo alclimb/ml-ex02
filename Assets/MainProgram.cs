@@ -7,17 +7,20 @@ public class MainProgram : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (var y = 0; y < 3; y++)
+        for (var z = 0; z < 3; z++)
         {
-            for (var x = 0; x < 5; x++)
+            for (var y = 0; y < 3; y++)
             {
-                // オブジェクトを生成
-                var areaObj = GameObject.Instantiate(
-                    Resources.Load("Area") as GameObject,
-                    new Vector3(x * 25f, y * 25f, 0f),
-                    new Quaternion());
+                for (var x = 0; x < 5; x++)
+                {
+                    // オブジェクトを生成
+                    var areaObj = GameObject.Instantiate(
+                        Resources.Load("Area") as GameObject,
+                        new Vector3(x * 25f, y * 25f, z * 25f),
+                        new Quaternion());
 
-                areaObj.GetComponentInChildren<UnityEngine.Canvas>().worldCamera = Camera.main;
+                    areaObj.GetComponentInChildren<UnityEngine.Canvas>().worldCamera = Camera.main;
+                }
             }
         }
     }
