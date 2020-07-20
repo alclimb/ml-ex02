@@ -176,7 +176,7 @@ public class FunnelAgent : Agent
         sensor.AddObservation(this._rigidbody.velocity);
 
         // 自身の向き
-        sensor.AddObservation(this._rigidbody.rotation);
+        sensor.AddObservation(this._rigidbody.transform.eulerAngles);
 
         // 経過時間
         // sensor.AddObservation((float)this._episodeTime.Elapsed.TotalSeconds);

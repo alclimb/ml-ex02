@@ -7,11 +7,11 @@ public class MainProgram : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (var z = 0; z < 3; z++)
+        for (var z = 0; z < 2; z++)
         {
             for (var y = 0; y < 3; y++)
             {
-                for (var x = 0; x < 5; x++)
+                for (var x = 0; x < 3; x++)
                 {
                     // オブジェクトを生成
                     var areaObj = GameObject.Instantiate(
