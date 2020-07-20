@@ -343,8 +343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
-    NumStackedVectorObservations: 6
+    VectorObservationSize: 10
+    NumStackedVectorObservations: 1
     VectorActionSize: 03000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
@@ -371,6 +371,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   StatusText: {fileID: 6603007049832332147}
+  Direction: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &6603007048655537931
 MonoBehaviour:
   m_ObjectHideFlags: 0
