@@ -47,7 +47,7 @@ public class FunnelAgent : Agent
         // 位置を初期化
         this._rigidbody.position = this._basePosition + new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range));
         this._rigidbody.velocity = Vector3.zero;
-        this._rigidbody.rotation = Quaternion.identity;
+        this._rigidbody.transform.rotation = Random.rotation;
         this._rigidbody.angularVelocity = Vector3.zero;
 
         // // ストップウォッチをリセット
@@ -70,7 +70,7 @@ public class FunnelAgent : Agent
         var force = new Vector3(actionX, actionY, actionZ) * power;
 
         // 物理エンジン: 力を加える
-        this._rigidbody.AddRelativeForce(force);
+        this._rigidbody.AddForceAtPosition(force, this._rigidbody.position, ForceMode.Force);
 
         // ベース地点からの移動距離を算出
         var distance = Vector3.Distance(this._rigidbody.position, this._basePosition);
