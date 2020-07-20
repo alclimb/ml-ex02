@@ -70,7 +70,7 @@ public class FunnelAgent : Agent
         var force = new Vector3(actionX, actionY, actionZ) * power;
 
         // 物理エンジン: 力を加える
-        this._rigidbody.AddForce(force);
+        this._rigidbody.AddRelativeForce(force);
 
         // ベース地点からの移動距離を算出
         var distance = Vector3.Distance(this._rigidbody.position, this._basePosition);
