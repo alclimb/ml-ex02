@@ -54,8 +54,7 @@ public class FunnelAgent : Agent
         const float power = 300f;
         const float area = 10f;
         const float limitTime = 5f; // リミット時間 (単位: 秒)
-        const float afterburnerSize = 4f;
-        const float afterburnerOffset = 1f;
+
         float actionX = vectorAction[0];
         float actionY = vectorAction[1];
         float actionZ = vectorAction[2];
@@ -63,46 +62,6 @@ public class FunnelAgent : Agent
         var episodeTime = (float)this._episodeTime.Elapsed.TotalSeconds;
 
         var force = new Vector3(actionX, actionY, actionZ) * power;
-
-        var afterburnerFront = base.transform.Find("AfterburnerFront").GetComponent<ParticleSystem>().main;
-        var afterburnerBack = base.transform.Find("AfterburnerBack").GetComponent<ParticleSystem>().main;
-        var afterburnerTop = base.transform.Find("AfterburnerTop").GetComponent<ParticleSystem>().main;
-        var afterburnerDown = base.transform.Find("AfterburnerDown").GetComponent<ParticleSystem>().main;
-        var afterburnerRight = base.transform.Find("AfterburnerRight").GetComponent<ParticleSystem>().main;
-        var afterburnerLeft = base.transform.Find("AfterburnerLeft").GetComponent<ParticleSystem>().main;
-
-        if (0 < actionX)
-        {
-            afterburnerFront.startSize = afterburnerOffset;
-            afterburnerBack.startSize = actionX * afterburnerSize + afterburnerOffset;
-        }
-        else
-        {
-            afterburnerFront.startSize = -actionX * afterburnerSize + afterburnerOffset;
-            afterburnerBack.startSize = afterburnerOffset;
-        }
-
-        if (0 < actionY)
-        {
-            afterburnerTop.startSize = afterburnerOffset;
-            afterburnerDown.startSize = actionY * afterburnerSize + afterburnerOffset;
-        }
-        else
-        {
-            afterburnerTop.startSize = -actionY * afterburnerSize + afterburnerOffset;
-            afterburnerDown.startSize = afterburnerOffset;
-        }
-
-        if (0 < actionZ)
-        {
-            afterburnerRight.startSize = actionZ * afterburnerSize + afterburnerOffset;
-            afterburnerLeft.startSize = afterburnerOffset;
-        }
-        else
-        {
-            afterburnerRight.startSize = afterburnerOffset;
-            afterburnerLeft.startSize = -actionZ * afterburnerSize + afterburnerOffset;
-        }
 
         // 物理エンジン: 力を加える
         this._rigidbody.AddForce(force);
@@ -140,6 +99,52 @@ public class FunnelAgent : Agent
 
             // 評価: 報酬を与える (ベース地点に近ければ高得点)
             base.AddReward(score);
+        }
+
+        // アフターバーナー表現
+        {
+            const float afterburnerSize = 4f;
+            const float afterburnerOffset = 1f;
+
+            var afterburnerFront = base.transform.Find("AfterburnerFront").GetComponent<ParticleSystem>().main;
+            var afterburnerBack = base.transform.Find("AfterburnerBack").GetComponent<ParticleSystem>().main;
+            var afterburnerTop = base.transform.Find("AfterburnerTop").GetComponent<ParticleSystem>().main;
+            var afterburnerDown = base.transform.Find("AfterburnerDown").GetComponent<ParticleSystem>().main;
+            var afterburnerRight = base.transform.Find("AfterburnerRight").GetComponent<ParticleSystem>().main;
+            var afterburnerLeft = base.transform.Find("AfterburnerLeft").GetComponent<ParticleSystem>().main;
+
+            if (0 < actionX)
+            {
+                afterburnerFront.startSize = afterburnerOffset;
+                afterburnerBack.startSize = actionX * afterburnerSize + afterburnerOffset;
+            }
+            else
+            {
+                afterburnerFront.startSize = -actionX * afterburnerSize + afterburnerOffset;
+                afterburnerBack.startSize = afterburnerOffset;
+            }
+
+            if (0 < actionY)
+            {
+                afterburnerTop.startSize = afterburnerOffset;
+                afterburnerDown.startSize = actionY * afterburnerSize + afterburnerOffset;
+            }
+            else
+            {
+                afterburnerTop.startSize = -actionY * afterburnerSize + afterburnerOffset;
+                afterburnerDown.startSize = afterburnerOffset;
+            }
+
+            if (0 < actionZ)
+            {
+                afterburnerRight.startSize = actionZ * afterburnerSize + afterburnerOffset;
+                afterburnerLeft.startSize = afterburnerOffset;
+            }
+            else
+            {
+                afterburnerRight.startSize = afterburnerOffset;
+                afterburnerLeft.startSize = -actionZ * afterburnerSize + afterburnerOffset;
+            }
         }
 
         // UI更新
